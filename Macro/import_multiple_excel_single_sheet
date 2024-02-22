@@ -1,1 +1,121 @@
+%macro import_append(filename); 
 
+proc import 
+  datafile="&filename" 
+  out=temp 
+  dbms=xlsx 
+  replace; 
+  getnames=no; * if not to create variable name based on first row *
+  DATAROW =2   *start reading data from datarow 2*
+; 
+
+run; 
+  
+*formatting the data imported before appending*
+data temp_new (rename=(A=DATE_OF_EXTRACT B=PRODUCT_CODE C=ACCOUNT_NUMBER D=FEE_CODE E=FEE_AMOUNT F=ERROR_NARRATION G=Notes)) ; 
+  label A ='DATE_OF_EXTRACT' ; 
+  label B ='PRODUCT_CODE'; 
+  label C ='ACCOUNT_NUMBER' ; 
+  label D ='FEE_CODE'; 
+  label E ='FEE_AMOUNT' ; 
+  label F ='ERROR_NARRATION'; 
+  label G ='Notes' ; 
+  set temp; 
+  if missing (coalescec(F)) and missing (coalesce(F)) then delete; *removing row if column F is not character or numeric *
+  * can try - if cmiss(of_all_) then delete; which removing row if all variable are missing *
+run; 
+
+  
+
+proc append 
+  data=temp_new 
+  base=_null_1 
+  force; 
+run; 
+
+run; 
+
+%mend; 
+
+  
+
+%macro readMultiExcel(dir=); 
+ *Formatting initial dataset format prior appending *
+  data _null_1; 
+  attrib 
+    DATE_OF_EXTRACT length=21 format=datetime21. label='DATE_OF_EXTRACT' 
+    PRODUCT_CODE length=$12 format=$12. label='PRODUCT_CODE ' 
+    ACCOUNT_NUMBER  length=$96 format=$96. label='ACCOUNT_NUMBER' 
+    FEE_CODE length=$12 format=$12. label='FEE_CODE' 
+    FEE_AMOUNT  length=8 format=BEST12. label='FEE_AMOUNT' 
+    ERROR_NARRATION length=$200 format=$200. label='ERROR_NARRATION' 
+    Notes length=$200 format=$200. label='Notes';
+  stop; 
+  run; 
+
+  
+
+  data _null_; 
+    length fref $8 fname $200; 
+    rc = filename(fref,"&dir");  
+    did = dopen(fref); 
+    if did ne 0 
+    then do; 
+      do i = 1 to dnum(did); 
+        fname = catx("\","&dir",dread(did,i)); 
+        if lowcase(scan(fname,-1,'.')) = 'xlsx' then call execute(cats('%import_append(',fname,')')); 
+      end; 
+      rc = dclose(did); 
+    end; 
+    rc = filename(fref); 
+  run; 
+
+run; 
+
+%mend; 
+
+  
+
+%readMultiExcel(dir=*select your folder path*); 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
