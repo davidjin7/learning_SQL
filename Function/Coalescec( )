@@ -1,0 +1,10 @@
+Reference : 
+https://documentation.sas.com/doc/en/vdmmlcdc/8.1/ds2ref/n0crpo0xd76wb3n1poba9wmu1a6q.htm
+
+Function : 
+Check if variable value is character expression , returning the  first non-null or nonmissing value in the list  , if the list is all non char expression then will be return null value 
+
+Code Example : 
+if missing (coalescec (VariableName)) then delete; /*delete row if value of variable is not character expression 
+
+
