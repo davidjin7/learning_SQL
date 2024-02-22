@@ -1,0 +1,9 @@
+/*If we need to read and run certain line of our SAS code program */
+
+/* Read lines 1200 to 2000 from your original SAS program */
+
+  filename subset temp;data _null_;
+  infile 'path/to/your/original_program.sas' firstobs=1200 obs=2000;
+  file subset;
+  input;
+  put _infile_;run;/* Include the extracted lines */%include subset;
