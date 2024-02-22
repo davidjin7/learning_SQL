@@ -1,1 +1,8 @@
+Reference : 
+https://documentation.sas.com/doc/en/vdmmlcdc/8.1/ds2ref/n1sggqfsihp9h8n1fc3hp5vpzdqp.htm
 
+Function : 
+Check if variable value is numeric expression , returning the  first non-null or nonmissing value in the list  , if the list is all non numeric expression then will be return null value 
+
+Code Example : 
+if missing (Coalesce(VariableName)) then delete; /*delete row if value of variable is not NUEMERIC expression 
