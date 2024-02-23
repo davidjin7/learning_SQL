@@ -2,7 +2,7 @@ Reference : https://documentation.sas.com/doc/en/vdmmlcdc/8.1/lestmtsref/n1rill4
 
 
 
-#Informat statement
+# Informat statement
 
 If your data is longer than the default length, you need to use informats. 
 For example, date or time values, names, and addresses can be longer than eight characters. 
