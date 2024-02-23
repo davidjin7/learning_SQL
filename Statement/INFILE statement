@@ -1,2 +1,11 @@
 Reference : https://documentation.sas.com/doc/en/vdmmlcdc/8.1/lestmtsref/n1rill4udj0tfun1fvce3j401plo.htm#n0jglo3zfq5c0un10w8m07gpmanp
 
+
+
+Informat statement
+
+If your data is longer than the default length, you need to use informats. 
+For example, date or time values, names, and addresses can be longer than eight characters. 
+In such cases, you either need to add an INFORMAT statement to the DATA step or add informats directly in the INPUT statement. 
+If you add informats in an INPUT statement, you must add a colon (:) in front of the informat to indicate that SAS is to read from the first character after the current delimiter to the number of characters specified in the informat or to the next delimiter.
+
