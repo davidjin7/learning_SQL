@@ -21,3 +21,7 @@ other INFILE options that you might consider using when you read delimited data:
 FIRSTOBS=
 
 Use this option to skip a header record by specifying FIRSTOBS=2.
+
+INFILE VS FILE statement
+The INFILE statement specifies the input file for any INPUT statements in the DATA step. 
+The FILE statement specifies the output file for any PUT statements in the DATA step.
