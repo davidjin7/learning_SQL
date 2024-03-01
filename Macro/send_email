@@ -1,1 +1,74 @@
+Overview: 
+  -This macro is to send email message to recipents 
+  - No File Attachment but included the Output Folder Location in the message 
 
+Example of Code :
+    %let rep = %sysfunc(intnx(day,%sysfunc(today()),-1,e),yymmddn8.);
+    %let eml = %sysfunc(intnx(day,%sysfunc(today()),-1,e),date11.);
+    %put &rep. ;
+    %put &eml. ;
+    
+    proc sql noprint ;
+    select count(*) into: num 
+    from final_result ;
+    quit ;
+    
+    %put &num. ;
+    
+    %macro email() ;
+    
+    %if &num.>0 %then %do ;     /*if no observation count then not need to send to other team*/
+    
+    options EMAILSYS 	= SMTP
+    		EMAILHOST 	= smtp.your_company_name.com
+    		EMAILID 	= "&email.";  /*or put your email id*/
+    
+    filename myemail
+    email 
+    	To = ("recipeints@email.com.au")
+    	Cc = ("ccrecipeints@email.com.au")
+    	Subject = "Report_Name &rep." ; /*rep. is the date of report*/ 
+    
+    data _null_;
+    	file myemail;
+    	put "Good morning,";
+    	put " ";
+    	put "%cmpres(&num.) exception(s) on &eml.."; /*MESSAGE*/
+    	Put " ";
+    	Put "Output: SHARED_FOLDER_LINK";
+    	Put " ";
+    	Put "Regards,";
+    	Put " ";
+    	Put "YOUR_TEAM_NAME";
+    run;
+    
+    filename myemail clear; 
+    
+    %end ;
+    
+    %mend ;
+    
+    %email() ;   /*execute the email macro*/
+
+    /*Create another email message to yourself if there is no obversation in the final_result*/
+
+    options EMAILSYS 	= SMTP
+    		EMAILHOST 	= smtp.your_company_name.com
+    		EMAILID 	= "&email.";  /*or put your email id*/
+    
+    filename myemail
+    email 
+    	To = ("&email.")
+    	Subject = "Report &rep. TESTING" ;
+    
+    data _null_;
+    	file myemail;
+    	put "Good morning,";
+    	put " ";
+    	put "%cmpres(&num.) exception(s) on &eml..";
+    	Put " ";
+    	Put "Output: SHARED_FOLDER_LINK";
+    	Put " ";
+    run;
+    
+    filename myemail clear; 
