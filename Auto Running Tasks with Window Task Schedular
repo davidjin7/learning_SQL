@@ -1,0 +1,49 @@
+This process is to use Window Task Schedular to run automate running those SAS code (even during weekend or midnight !)
+
+How to Schedule Tasks:
+
+
+Before Scheduling :
+  1. Create a SASScratch Folder inside SAS folder (Eg: C:\Program Files\SASHome94\SASScratch ) 
+
+  2. Create three subfolder inside the SASSratch folder:
+      a) SAS Batch 
+          - dont open with double click, open by right click and edit with notepad
+          - a bat file that with a line that consist 4 componenets: 
+              -1) Path to your SAS system (.exe)
+              -2) Path to your SAS configuration file (.cfg)
+              -3) path to your SAS code file (.sas)
+              -4) path to save the log file (.log)
+          -Eg: "path_for_your_SAS.exe"-CONFIG "path_for_your_saq_cfg_file" -sysin "path_to_your_code_for_scheduling_run.sas" -LOG "path_to_save_the_log_when_running_report.log"
+          -If want to run different code using a SAS Batch File : create multiple line 
+    
+      b) SAS Code 
+          - place to save the SAS code to scheduling
+          - Instead of putting the original sas code file, to create another sas code file to excecute the original sas code file using function %include :
+                -Eg:  %include "\Users\&sysuserid.\autoexc.sas";
+                      %include "SAS_code.sas"
+                      proc printto; run;
+                      endsas;
+          -To add a line to proc Printto log = "log\.log" new; run; so that it will save the run log in the SAS log after running 
+  
+      c) SAS Log   
+          - Folder path when SAS will save the log after or during running the code 
+          - to add the log path in the SAS Batch File
+
+TO Scheduling :
+  1. Open Window Task Schedular
+  2. Click Task Schedular Library on the left side 
+  3. GO to Action (right side), select Create Task 
+  4. Name the Task (Eg:Report_Name)
+  5. Add new /Edit the Trigger ( Daily/Monthly/Weekly, Start Time, and other advanced settings based on your requirement)
+  6. Go to Actions, New, Start a program and browse and select the Batch File that created then OK
+
+Then the window task Schedular will run the task based on the setting 
+
+Notes : you can manual run by clicking the task name and click Run on the right panel
+
+
+
+
+
+    
