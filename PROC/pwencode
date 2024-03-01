@@ -1,0 +1,9 @@
+Syntax :
+  PROC Pwencode IN="your_real_password"; 
+  run;
+
+After that, it will create encoded password in the log panel 
+then we can copy it and use it in our coding without letting other know our password when sharing the code within the teams
+  - Example of encoded password created : {SAS002}XXASCsacsadcsdcascas21321 
+
+Reference : https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/proc/n0dc6in0v7nfain1f2whl6f5x66p.htm
