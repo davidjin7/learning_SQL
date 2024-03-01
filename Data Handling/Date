@@ -1,0 +1,32 @@
+Getting Date with Different Year , Month , Date Format 
+
+1 Yesterday Date with YYYYMMDD format   /*20240209*/
+
+    %let rep = %sysfunc(intnx(day,%sysfunc(today()),-1,e),yymmddn8.);  
+    %put &rep. ;   
+
+2 Yesterday Date with DD-MMM-YYYY format  /*29-FEB-2024*/
+
+    %let eml = %sysfunc(intnx(day,%sysfunc(today()),-1,e),date11.);
+    %put &rep. ;   
+
+3 Yesteday Date with MMM format  /*Jan*/
+
+    %let month_name = %sysfunc(putn(%sysfunc(intnx(month, %sysfunc(today()), -1)), monname.));
+    %put &month_name.;  
+
+4. Yesterday Date with month number '01' format   /*01*/
+
+    %let month_number_2 = %sysfunc(month(%sysfunc(month(%sysfunc(intnx(month, %sysfunc(today()), -1))))),z2.);
+    %put &month_number_2.;
+    
+5. Yesterday Date with month number '1' format /*1*/
+
+    %let month_number_1 = %sysfunc(month(%sysfunc(month(%sysfunc(intnx(month, %sysfunc(today()), -1))))));
+    %put &month_number_1.;
+
+6. Yesterday Date with Year YYYY format /*2024*/
+
+    %let CY = %sysfunc(year(%sysfunc(intnx(month, %sysfunc(today()), -1))));
+    %put &CY. ;
+  
