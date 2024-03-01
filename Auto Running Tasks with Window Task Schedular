@@ -40,7 +40,11 @@ TO Scheduling :
 
 Then the window task Schedular will run the task based on the setting 
 
-Notes : you can manual run by clicking the task name and click Run on the right panel
+Notes : 
+you can manual run by clicking the task name and click Run on the right panel
+
+Reference :
+https://ts.vcu.edu/askit/research-math-science/sas/sas-tips-links--faqs/using-sas-for-windows-in-batch-mode/
 
 
 
