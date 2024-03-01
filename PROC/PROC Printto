@@ -1,0 +1,9 @@
+Proc Printo <option>;
+
+Overview:
+
+
+Example :
+
+  1) Printing log to external files 
+    proc printto log= "\\sas..log" new ; run;
