@@ -29,4 +29,13 @@ Getting Date with Different Year , Month , Date Format
 
     %let CY = %sysfunc(year(%sysfunc(intnx(month, %sysfunc(today()), -1))));
     %put &CY. ;
+
+7. FY with format FYYY (MACRO VARIABLE )
+
+    DATA _NULL_;
+    IF MONTH(%SYSFUNC(TODAY())) IN (8,9,10,11,12) THEN FY=year(%sysfunc(today()))+1;
+    else FY =year(%sysfunc(today()));
+    CALL SYSPUT('FINANCIAL_YEAR','FY'||SUBSTR(PUT(FY,4.),3,2));
+    RUN; 
+    %PUT &FINANCIAL_YEAR;
   
