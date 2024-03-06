@@ -1,0 +1,12 @@
+To Assigns a value to a macro variable, and removes both leading and trailing blanks.
+
+Reference : 
+  https://documentation.sas.com/doc/en/pgmsascdc/v_048/mcrolref/p1fa0ay5pzr9yun1mvqxv8ipzd4d.html
+  https://www.listendata.com/2023/06/sas-call-symput-and-call-symputx.html
+
+Example :
+
+data _null_;
+call symput('myvalue', '25');
+run;
+%put value = &myvalue.;
