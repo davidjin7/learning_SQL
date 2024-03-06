@@ -6,7 +6,24 @@ Reference :
 
 Example :
 
-data _null_;
-call symput('myvalue', '25');
-run;
-%put value = &myvalue.;
+    data _null_;
+    call symput('myvalue', '25');
+    run;
+    %put value = &myvalue.;
+
+Example 2:
+    Suppose you are asked to extract the name and age of the first student from "sashelp.class" dataset and stores them in macro variables.
+    
+    data _null_;
+    set sashelp.class;
+    if _N_ = 1 then do;
+    call symputx('myname', name);
+    call symputx('myage', Age);
+    end;
+    run;
+    
+    %put Name = &myname.;
+    %put Age = &myage.;
+    The if _N_ = 1 then do; statement tells SAS to run the code only for the first observation.
+    call symputx('myname', name); assigns the value of the variable "name" from the current observation to the macro variable "myname"
+    call symputx('myage', Age); assigns the value of the variable "Age" from the current observation to the macro variable "myage"
