@@ -1,0 +1,18 @@
+To create a report to check the frequncy of a categorical variables' value of a dataset 
+
+
+PROC FREQ DATA=base;
+    TABLE variable1 variable2 variable3 ;
+RUN;
+
+/*if want to include frequency of missing value of the variables */
+PROC FREQ DATA=base;
+    TABLE variable1 variable2 variable3 / MISSING ;
+RUN;
+
+/*if want to create a output table for the proc fre result*/
+proc freq data=Color;
+   tables Eyes Hair Eyes*Hair / out=FreqCount outexpect sparse;
+   weight Count;
+   title 'Eye and Hair Color of European Children';
+run;
