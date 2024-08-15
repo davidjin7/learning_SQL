@@ -1,0 +1,12 @@
+/*when combining multiple datasets , sometimes we might face scenario while variables not appears in some tables while some do , or variables with different formats in different tables*/
+
+/*Below code could be used to list out all variables, label name and format and length  from all tables in a library*/
+
+proc sql ;
+create table listing as 
+select	distinct *
+from dictionary.columns 
+where libname = 'LIBRARY_NAME'
+and memname like 'TABLENAME%' ; /*memname=member name*/
+quit ;
+
