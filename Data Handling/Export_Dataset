@@ -1,0 +1,21 @@
+/*When Exporting Large Dataset into local server, we could choose to use either :
+
+i) Proc Statement :
+
+  libname output "local_drive_location";
+  rsubmit;
+  Proc Download data=base
+  out=output.base;
+  run;
+  endrsubmit;
+
+
+or 
+
+ii) using Data statemnet :
+
+  Data output.base;
+  set base;
+  run;
+
+/* Overall, proc download would be faster than data steps as data steps read each line and proc download or even proc copy can move the data in blocks*/
