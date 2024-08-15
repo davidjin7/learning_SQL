@@ -1,0 +1,40 @@
+/*Combining multiple dataset with similar name*/
+
+data combined_base (compress=Yes) ;
+ set table_names_:
+;
+run;
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/*if want to combine within macro*/
+%macro loop;
+
+%do i=1 %to 12;
+
+data _null_;
+	Start= intnx('month', today(),-&i., 'B');
+	call symput ('month_start', put(start, date9.));
+	call symput ('rep_month', put(start, YYMMN.));
+
+	End_M= intnx ('month', today(),-&i., 'E');
+	call symput ('month_end', put(end_m, date9.));
+
+run;
+
+%put **********************&month_start. &rep_month.;
+%put **********************&month_end.;
+
+%if &i=1 %then %do;
+	data final;
+		set data_&rep_month.;
+	run;
+%end;
+
+%else %do;
+	data final;
+		set data_&rep_month. final;   /*if i=1 create the first final dataset , else combining the following data tables with the final dataset created in i=1*/
+	run;
+%end;
+
+%end;
+%mend;
