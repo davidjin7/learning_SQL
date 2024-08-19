@@ -1,0 +1,55 @@
+/*To sort data by all variables*/
+  PROC SORT DATA= 
+  by _all_;
+  run;
+
+/*To sort data by all variables with output dataset*/
+  PROC SORT DATA= OUT=
+  by _all_;
+  run;
+
+/*To sort data in descending  */
+  /*need to be careful for the by variables 
+  PROC SORT DATA= OUT=
+  by descending variables;
+  run;
+
+/*To filter before sorting  */
+  PROC SORT DATA=input_dataset (where=(product = 'A')) OUT=
+  by variables;
+  run;
+
+/*To sort starting from certain row until certain obs  */
+  PROC SORT DATA=input_dataset (firstobs= 5 obs=8) OUT=
+  by variables;
+  run;
+
+
+/*To sort data and no any duplicate row based on certain variables */
+  /*need to be careful for the by variables 
+  PROC SORT DATA= (nodupkey) OUT= 
+  by variables;
+  run;
+
+/*To sort data and no any duplicate row based on all variables */
+  /*need to be careful for the by variables 
+  PROC SORT DATA= (nodup) OUT= 
+  by variables;
+  run;
+
+/*SPECIAL CASE*/
+  /*if want to sort and filter and keep only the last observation*/
+  /* Do two times sort with first time descending by a primary key and second sort with nodupkey*/
+
+    PROC SORT DATA= OUT=
+    by descending variables;
+    run;
+
+     PROC SORT DATA= (nodupkey) OUT=
+    by variables;
+    run;
+
+
+
+
+
